@@ -1,0 +1,50 @@
+{
+  "wlru_analytics_ga": {
+    "header": "Google Analytics",
+    "content": "<p>Enter your Google Analytics Tracking ID below (e.g. 'UA-00000000-0'). Need help? Click <a href='https://support.google.com/analytics/answer/1032385?hl=en'>here</a>.</p>",
+    "fields": {
+      "analytics_ga": {
+        "type": "text",
+        "label": "Universal Tracking ID"
+      }
+    }
+  },
+  "wlru_analytics_gtm": {
+    "header": "Google Tag Manager",
+    "content": "<p>Enter your Google Tag Manager container ID (e.g. 'GTM-0000'). Need help? Click <a href='https://developers.google.com/tag-manager/quickstart'>here</a>.</p>",
+    "fields": {
+      "analytics_gtm": {
+        "type": "text",
+        "label": "Container ID"
+      }
+    }
+  },
+  "wlru_analytics_fbp": {
+    "header": "Facebook Pixel",
+    "content": "<p>Enter your Facebook Pixel ID number. Need help? Click <a href='https://www.facebook.com/business/help/952192354843755'>here</a>.</p>",
+    "fields": {
+      "analytics_fbp": {
+        "type": "text",
+        "label": "Pixel ID Number"
+      }
+    }
+  },
+  "wlru_analytics_pa": {
+    "header": "Pinterest Analytics",
+    "content": "<p>Enter your Pinterest domain verification code below (e.g. '431a77c83b1a923e74dbe6d4b4ff1bfe'). Need help? Click <a href='https://business.pinterest.com/en/confirm-your-website'>here</a>.</p>",
+    "fields": {
+      "analytics_pa": {
+        "type": "text",
+        "label": "Site Verification Code"
+      },
+      "b_link_list": {
+        "type": "link_list",
+        "label": "Link list"
+      },
+      "b_color": {
+        "type": "color",
+        "label": "Color"
+      }
+    }
+  }
+}

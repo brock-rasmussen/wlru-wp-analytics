@@ -1,0 +1,4 @@
+[submodule "vendor/ezadmin"]
+	path = vendor/ezadmin
+	url = https://github.com/brock-rasmussen/ezadmin.git
+	branch = master

@@ -6,124 +6,68 @@ Author: Brock Rasmussen, Wallaroo Media
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
-add_action( 'admin_menu', 'wlru_analytics_admin_menu' );
-function wlru_analytics_admin_menu() {
-  add_options_page(
-    'Analytics by Wallaroo Media',
-    'Analytics',
-    'manage_options',
-    'wlru-analytics',
-    'wlru_analytics_page'
-  );
-}
 
-function wlru_analytics_page() { ?>
-  <div class="wrap">
-    <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-    <form method="post" action="options.php">
-      <?php
-      settings_fields( 'wlru_analytics_page' );
-      do_settings_sections( 'wlru-analytics' );
-      submit_button();
-      ?>
-    </form>
-  </div>
-<?php }
+require_once 'vendor/ezwpz/ezwpz-settings.php';
 
-add_action( 'admin_init', 'wlru_analytics_settings' );
-function wlru_analytics_settings() {
-  add_settings_section(
-    'wlru_analytics_ga_section',
-    'Google Analytics',
-    'wlru_analytics_ga_section',
-    'wlru-analytics'
-  );
-  add_settings_field(
-    'wlru_analytics_ga',
-    'Universal Tracking ID',
-    'wlru_analytics_ga',
-    'wlru-analytics',
-    'wlru_analytics_ga_section'
-  );
-  register_setting( 'wlru_analytics_page', 'wlru_analytics_ga' );
+// add page and setting
+EZWPZ_Settings::register_setting('wlru_analytics', 'wlru_analytics');
+EZWPZ_Settings::add_page('wlru_analytics', [
+  'page_title' => 'WLRU Analytics',
+  'menu_title' => 'WLRU Analytics',
+  'parent_slug' => 'options-general.php'
+]);
 
-  add_settings_section(
-    'wlru_analytics_gtm_section',
-    'Google Tag Manager',
-    'wlru_analytics_gtm_section',
-    'wlru-analytics'
-  );
-  add_settings_field(
-    'wlru_analytics_gtm',
-    'Container ID',
-    'wlru_analytics_gtm',
-    'wlru-analytics',
-    'wlru_analytics_gtm_section'
-  );
-  register_setting( 'wlru_analytics_page', 'wlru_analytics_gtm' );
+// google analytics
+EZWPZ_Settings::add_section('wlru_analytics', 'wlru_analytics_ga', [
+  'title' => 'Google Analytics',
+  'description' => 'Enter your Google Analytics Tracking ID below (e.g. UA-00000000-0). Need help? Click <a target="_blank" href="https://support.google.com/analytics/answer/1032385?hl=en">here</a>.'
+]);
+EZWPZ_Settings::add_field('wlru_analytics', 'wlru_analytics_ga', 'wlru_analytics_ga', [
+  'title' => 'Universal Tracking ID',
+  'label_for' => 'wlru_analytics_ga',
+]);
+EZWPZ_Settings::add_control('wlru_analytics', 'wlru_analytics_ga', 'wlru_analytics_ga', 'wlru_analytics_ga', [
+  'setting' => 'wlru_analytics',
+]);
 
-  add_settings_section(
-    'wlru_analytics_fbp_section',
-    'Facebook Pixel',
-    'wlru_analytics_fbp_section',
-    'wlru-analytics'
-  );
-  add_settings_field(
-    'wlru_analytics_fbp',
-    'Pixel ID Number',
-    'wlru_analytics_fbp',
-    'wlru-analytics',
-    'wlru_analytics_fbp_section'
-  );
-  register_setting( 'wlru_analytics_page', 'wlru_analytics_fbp' );
+// google tag manager
+EZWPZ_Settings::add_section('wlru_analytics', 'wlru_analytics_gtm', [
+  'title' => 'Google Tag Manager',
+  'description' => 'Enter your Google Tag Manager container ID (e.g. GTM-0000). Need help? Click <a target="_blank" href="https://developers.google.com/tag-manager/quickstart">here</a>.'
+]);
+EZWPZ_Settings::add_field('wlru_analytics', 'wlru_analytics_gtm', 'wlru_analytics_gtm', [
+  'title' => 'Container ID',
+  'label_for' => 'wlru_analytics_gtm',
+]);
+EZWPZ_Settings::add_control('wlru_analytics', 'wlru_analytics_gtm', 'wlru_analytics_gtm', 'wlru_analytics_gtm', [
+  'setting' => 'wlru_analytics'
+]);
 
-  add_settings_section(
-    'wlru_analytics_pa_section',
-    'Pinterest Analytics',
-    'wlru_analytics_pa_section',
-    'wlru-analytics'
-  );
-  add_settings_field(
-    'wlru_analytics_pa',
-    'Site Verification Code',
-    'wlru_analytics_pa',
-    'wlru-analytics',
-    'wlru_analytics_pa_section'
-  );
-  register_setting( 'wlru_analytics_page', 'wlru_analytics_pa' );
-}
+// facebook pixel
+EZWPZ_Settings::add_section('wlru_analytics', 'wlru_analytics_fbp', [
+  'title' => 'Facebook Pixel',
+  'description' => 'Enter your Facebook Pixel ID number. Need help? Click <a target="_blank" href="https://www.facebook.com/business/help/952192354843755">here</a>.'
+]);
+EZWPZ_Settings::add_field('wlru_analytics', 'wlru_analytics_fbp', 'wlru_analytics_fbp', [
+  'title' => 'Pixel ID Number',
+  'label_for' => 'wlru_analytics_fbp',
+]);
+EZWPZ_Settings::add_control('wlru_analytics', 'wlru_analytics_fbp', 'wlru_analytics_fbp', 'wlru_analytics_fbp', [
+  'setting' => 'wlru_analytics'
+]);
 
-function wlru_analytics_ga_section() {
-  echo '<p>Enter your Google Analytics Tracking ID below (e.g. "UA-00000000-0"). Need help? Click <a href="https://support.google.com/analytics/answer/1032385?hl=en">here</a>.</p>';
-}
-function wlru_analytics_ga() {
-  $setting = esc_attr( get_option( 'wlru_analytics_ga' ) );
-  echo "<input type='text' name='wlru_analytics_ga' pattern='(UA|YT|MO)-\d+-\d+' value='$setting'>";
-}
-
-function wlru_analytics_gtm_section() {
-  echo '<p>Enter your Google Tag Manager container ID (e.g. "GTM-0000"). Need help? Click <a href="https://developers.google.com/tag-manager/quickstart">here</a>.</p>';
-}
-function wlru_analytics_gtm() {
-  $setting = esc_attr( get_option( 'wlru_analytics_gtm' ) );
-  echo "<input type='text' name='wlru_analytics_gtm' pattern='(GTM)-.{4,}' value='$setting'>";
-}
-
-function wlru_analytics_fbp_section() {
-  echo '<p>Enter your Facebook Pixel ID number. Need help? Click <a href="https://www.facebook.com/business/help/952192354843755">here</a>.</p>';
-}
-function wlru_analytics_fbp() {
-  $setting = esc_attr( get_option( 'wlru_analytics_fbp' ) );
-  echo "<input type='number' name='wlru_analytics_fbp' pattern='[0-9]' value='$setting'>";
-}
-
-function wlru_analytics_pa_section() {
-  echo '<p>Enter your Pinterest domain verification code below (e.g. "431a77c83b1a923e74dbe6d4b4ff1bfe"). Need help? Click <a href="https://business.pinterest.com/en/confirm-your-website">here</a>.</p>';
-}
-function wlru_analytics_pa() {
-  $setting = esc_attr( get_option( 'wlru_analytics_pa' ) );
-  echo "<input type='text' name='wlru_analytics_pa' value='$setting'>";
-}
+// pinterest analytics
+EZWPZ_Settings::add_section('wlru_analytics', 'wlru_analytics_pa', [
+  'title' => 'Pinterest Analytics',
+  'description' => 'Enter your Pinterest domain verification code below (e.g. 431a77c83b1a923e74dbe6d4b4ff1bfe). Need help? Click <a target="_blank" href="https://business.pinterest.com/en/confirm-your-website">here</a>.'
+]);
+EZWPZ_Settings::add_field('wlru_analytics', 'wlru_analytics_pa', 'wlru_analytics_pa', [
+  'title' => 'Site Verification Code',
+  'label_for' => 'wlru_analytics_pa',
+]);
+EZWPZ_Settings::add_control('wlru_analytics', 'wlru_analytics_pa', 'wlru_analytics_pa', 'wlru_analytics_pa', [
+  'setting' => 'wlru_analytics'
+]);
 
 add_action( 'wp_head', 'wlru_analytics_wp_head' );
 function wlru_analytics_wp_head() {
