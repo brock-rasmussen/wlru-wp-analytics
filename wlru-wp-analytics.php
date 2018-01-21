@@ -7,7 +7,7 @@ License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-require_once 'vendor/ezwpz/ezwpz-settings.php';
+require_once 'ezwpz/ezwpz-settings.php';
 
 // add page and setting
 EZWPZ_Settings::register_setting('wlru_analytics', 'wlru_analytics');

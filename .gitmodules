@@ -1,4 +1,3 @@
-[submodule "vendor/ezwpz"]
-	path = vendor/ezwpz
-	url = https://github.com/brock-rasmussen/ezwpz.git
-	branch = dev
+[submodule "ezwpz"]
+	path = ezwpz
+	url = https://github.com/brock-rasmussen/ezwpz
