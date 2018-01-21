@@ -1,4 +1,4 @@
-[submodule "vendor/ezadmin"]
-	path = vendor/ezadmin
-	url = https://github.com/brock-rasmussen/ezadmin.git
-	branch = master
+[submodule "vendor/ezwpz"]
+	path = vendor/ezwpz
+	url = https://github.com/brock-rasmussen/ezwpz.git
+	branch = dev
